@@ -408,3 +408,71 @@ func TestSimilarityFailureIsAWarning(t *testing.T) {
 		t.Errorf("warnings = %v", d.Warnings)
 	}
 }
+
+const sameTitle = "Walking speed and memory decline in older adults at home."
+
+func TestDuplicateInSameRunIsSkipped(t *testing.T) {
+	arts := articles("20", "21", "22")
+	a, b := arts["20"], arts["21"]
+	a.Title, b.Title = sameTitle, strings.ToUpper(sameTitle)
+	arts["20"], arts["21"] = a, b
+	pm := &fakePubMed{results: map[string][]string{"t1": {"20", "21", "22"}}, articles: arts}
+	l := &fakeLLM{}
+	st := baselined()
+	d, err := newRunner(pm, l, st).Run(context.Background())
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !reflect.DeepEqual(l.calls, []string{"20", "22"}) {
+		t.Errorf("summarized %v, want 20 and 22", l.calls)
+	}
+	if len(d.Items) != 2 || d.Stats.Duplicates != 1 {
+		t.Errorf("items=%d duplicates=%d, want 2 and 1", len(d.Items), d.Stats.Duplicates)
+	}
+	if st.Seen["21"] != "duplicate of 20" {
+		t.Errorf("state for 21 = %q", st.Seen["21"])
+	}
+}
+
+func TestDuplicateOfEarlierRunIsSkipped(t *testing.T) {
+	// Run 1 summarizes the preprint; run 2 finds the journal version under a
+	// new PMID and DOI.
+	preprint := pubmed.Article{PMID: "30", Title: sameTitle, DOI: "10.1101/x", Abstract: "A."}
+	journal := pubmed.Article{PMID: "31", Title: strings.ToLower(sameTitle), DOI: "10.1002/y", Abstract: "A."}
+	st := baselined()
+
+	pm := &fakePubMed{results: map[string][]string{"t1": {"30"}}, articles: map[string]pubmed.Article{"30": preprint}}
+	if _, err := newRunner(pm, &fakeLLM{}, st).Run(context.Background()); err != nil {
+		t.Fatal(err)
+	}
+
+	pm = &fakePubMed{results: map[string][]string{"t1": {"31"}}, articles: map[string]pubmed.Article{"31": journal}}
+	l := &fakeLLM{}
+	d, err := newRunner(pm, l, st).Run(context.Background())
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(l.calls) != 0 || len(d.Items) != 0 || d.Stats.Duplicates != 1 {
+		t.Errorf("calls=%v items=%d duplicates=%d, want no calls, no items, 1 duplicate", l.calls, len(d.Items), d.Stats.Duplicates)
+	}
+	if st.Seen["31"] != "duplicate of 30" {
+		t.Errorf("state for 31 = %q", st.Seen["31"])
+	}
+}
+
+func TestSimilarTitlesAreNotDuplicates(t *testing.T) {
+	arts := articles("40", "41")
+	a, b := arts["40"], arts["41"]
+	a.Title = sameTitle
+	b.Title = "Walking speed and memory decline in older adults at home: a replication."
+	arts["40"], arts["41"] = a, b
+	pm := &fakePubMed{results: map[string][]string{"t1": {"40", "41"}}, articles: arts}
+	l := &fakeLLM{}
+	d, err := newRunner(pm, l, baselined()).Run(context.Background())
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(l.calls) != 2 || d.Stats.Duplicates != 0 {
+		t.Errorf("calls=%v duplicates=%d, want both summarized", l.calls, d.Stats.Duplicates)
+	}
+}

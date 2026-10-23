@@ -98,7 +98,14 @@ func (r *Runner) Run(ctx context.Context) (digest.Digest, error) {
 	for _, a := range articles {
 		byID[a.PMID] = a
 	}
-	sims, err := r.similarities(ctx, &d, ids, byID)
+	dups := r.duplicates(ids, byID)
+	fresh := make([]string, 0, len(ids))
+	for _, id := range ids {
+		if _, dup := dups[id]; !dup {
+			fresh = append(fresh, id)
+		}
+	}
+	sims, err := r.similarities(ctx, &d, fresh, byID)
 	if err != nil {
 		return d, err
 	}
@@ -118,6 +125,12 @@ func (r *Runner) Run(ctx context.Context) (digest.Digest, error) {
 			r.progress(i, len(ids), id, "skipped (erratum)")
 			continue
 
+		case dups[id] != "":
+			r.State.MarkSeen(id, "duplicate of "+dups[id])
+			d.Stats.Duplicates++
+			r.progress(i, len(ids), id, "skipped (duplicate of "+dups[id]+")")
+			continue
+
 		default:
 			item.Article = a
 			item.Mentions = r.Matcher.Mentions(a.Title + "\n" + a.Abstract)
@@ -129,6 +142,7 @@ func (r *Runner) Run(ctx context.Context) (digest.Digest, error) {
 				// Scoring a title alone invites the model to make things up.
 				item.Note = "No abstract in PubMed, so not scored."
 				r.State.MarkSeen(id, today)
+				r.State.RememberKeys(id, a.DedupeKeys())
 				d.Stats.NoAbstract++
 				break
 			}
@@ -147,6 +161,7 @@ func (r *Runner) Run(ctx context.Context) (digest.Digest, error) {
 			case err == nil:
 				item.Result = &res
 				r.State.MarkSeen(id, today)
+				r.State.RememberKeys(id, a.DedupeKeys())
 				d.Stats.Summarized++
 				gone, err := r.extract(ctx, &d, &item, paper)
 				if err != nil {
@@ -173,6 +188,39 @@ func (r *Runner) Run(ctx context.Context) (digest.Digest, error) {
 		d.Items = append(d.Items, item)
 	}
 	return d, nil
+}
+
+// duplicates maps each candidate that is the same paper as another, seen in
+// an earlier run or earlier in this one, to that paper's PMID. Within a run
+// the first candidate in processing order is kept.
+func (r *Runner) duplicates(ids []string, byID map[string]pubmed.Article) map[string]string {
+	dups := map[string]string{}
+	inRun := map[string]string{} // key → PMID kept in this run
+	for _, id := range ids {
+		a, ok := byID[id]
+		if !ok || a.IsErratum() {
+			continue
+		}
+		keys := a.DedupeKeys()
+		if first, ok := r.State.DuplicateOf(id, keys); ok {
+			dups[id] = first
+			continue
+		}
+		dup := false
+		for _, k := range keys {
+			if first, ok := inRun[k]; ok {
+				dups[id] = first
+				dup = true
+				break
+			}
+		}
+		if !dup {
+			for _, k := range keys {
+				inRun[k] = id
+			}
+		}
+	}
+	return dups
 }
 
 // extract adds structured fields to a summarized paper. A failure is noted on

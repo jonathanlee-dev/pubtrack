@@ -7,6 +7,7 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
+	"unicode"
 )
 
 const fetchBatchSize = 100
@@ -32,6 +33,38 @@ func (a Article) IsErratum() bool {
 		}
 	}
 	return false
+}
+
+// minTitleWords keeps generic titles ("Dementia.", "Reply to the letter.")
+// from matching unrelated papers.
+const minTitleWords = 6
+
+// DedupeKeys identify a paper across PubMed records. A preprint and its
+// journal version have different PMIDs and DOIs but the same title (often
+// recased), and PubMed occasionally indexes one paper twice.
+func (a Article) DedupeKeys() []string {
+	var keys []string
+	if doi := strings.ToLower(strings.TrimSpace(a.DOI)); doi != "" {
+		keys = append(keys, "doi:"+doi)
+	}
+	if t := normalizeTitle(a.Title); len(strings.Fields(t)) >= minTitleWords {
+		keys = append(keys, "title:"+t)
+	}
+	return keys
+}
+
+// normalizeTitle lowercases a title and reduces everything but letters and
+// digits to single spaces.
+func normalizeTitle(s string) string {
+	var b strings.Builder
+	for _, r := range strings.ToLower(s) {
+		if unicode.IsLetter(r) || unicode.IsDigit(r) {
+			b.WriteRune(r)
+		} else {
+			b.WriteRune(' ')
+		}
+	}
+	return strings.Join(strings.Fields(b.String()), " ")
 }
 
 // Fetch returns full records for pmids, in batches. A PMID that PubMed

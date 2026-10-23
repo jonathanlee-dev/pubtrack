@@ -36,6 +36,7 @@ type Stats struct {
 	NoAbstract    int   `json:"no_abstract"`
 	Failed        int   `json:"failed"`
 	SkippedErrata int   `json:"skipped_errata"`
+	Duplicates    int   `json:"duplicates_skipped"`
 	Baselined     int   `json:"baselined"`
 	LLMPapers     int   `json:"llm_papers"`
 	LLMCalls      int   `json:"llm_calls"`
@@ -254,6 +255,9 @@ func writeStats(b *strings.Builder, s Stats) {
 	count("Failed", s.Failed)
 	if s.SkippedErrata > 0 {
 		count("Errata skipped", s.SkippedErrata)
+	}
+	if s.Duplicates > 0 {
+		count("Duplicates skipped (same title or DOI as an earlier paper)", s.Duplicates)
 	}
 	if s.Baselined > 0 {
 		count("Existing citing papers recorded (first run)", s.Baselined)

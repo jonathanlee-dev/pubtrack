@@ -83,3 +83,41 @@ func TestKeepPendingDoesNotCountAnAttempt(t *testing.T) {
 		t.Errorf("KeepPending on a new paper: %d, %v; want 0, true", n, ok)
 	}
 }
+
+func TestDuplicateKeys(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "state.json")
+	s := New()
+	s.RememberKeys("100", []string{"doi:10.1/a", "title:same paper"})
+	s.RememberKeys("200", []string{"title:same paper"}) // already recorded: keeps 100
+	if err := s.Save(path); err != nil {
+		t.Fatal(err)
+	}
+	got, err := Load(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if first, ok := got.DuplicateOf("300", []string{"doi:10.9/other", "title:same paper"}); !ok || first != "100" {
+		t.Errorf("DuplicateOf = %q, %v; want 100, true", first, ok)
+	}
+	if _, ok := got.DuplicateOf("100", []string{"title:same paper"}); ok {
+		t.Error("a paper was reported as a duplicate of itself")
+	}
+	if _, ok := got.DuplicateOf("300", []string{"title:another paper"}); ok {
+		t.Error("an unseen key was reported as a duplicate")
+	}
+}
+
+func TestLoadStateWithoutKeys(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "state.json")
+	if err := os.WriteFile(path, []byte(`{"seen":{"1":"2026-10-19"},"failed":{},"citations_baselined":true}`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	s, err := Load(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	s.RememberKeys("2", []string{"title:a paper"}) // must not panic on a nil map
+	if s.Keys["title:a paper"] != "2" {
+		t.Errorf("keys = %v", s.Keys)
+	}
+}

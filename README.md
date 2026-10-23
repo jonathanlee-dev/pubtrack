@@ -42,9 +42,11 @@ directory doesn't matter):
 3. One `elink` call finds papers that cite the reader's own papers.
 4. Drop PMIDs already in `state.json`; add earlier failures for a retry.
 5. `efetch` the rest as XML, in batches of 100.
-6. Rule-based flags: which queries matched, whether it cites your work, whether it names your platforms.
-7. Summarize and score each paper one at a time with a JSON schema; validate; retry once with feedback.
-8. Write the digest, then save state.
+6. Skip papers already seen under another PMID, matched by DOI or title: a preprint's journal
+   version, or a paper PubMed indexed twice.
+7. Rule-based flags: which queries matched, whether it cites your work, whether it names your platforms.
+8. Summarize and score each paper one at a time with a JSON schema; validate; retry once with feedback.
+9. Write the digest, then save state.
 
 On the first run, papers that already cited your work are recorded as seen instead of filling the
 first digest.

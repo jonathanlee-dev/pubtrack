@@ -300,3 +300,60 @@ func TestEndToEndOllamaDownFailsBeforeNCBI(t *testing.T) {
 		t.Errorf("made %d NCBI requests with Ollama down, want 0", n)
 	}
 }
+
+func TestEndToEndJournalVersionOfPreprintIsSkipped(t *testing.T) {
+	record := func(pmid, journal, doi, title string) string {
+		return `<PubmedArticle><MedlineCitation><PMID>` + pmid + `</PMID><Article>
+<Journal><Title>` + journal + `</Title></Journal>
+<ArticleTitle>` + title + `</ArticleTitle>
+<ELocationID EIdType="doi" ValidYN="Y">` + doi + `</ELocationID>
+<Abstract><AbstractText>Placeholder abstract about speech markers.</AbstractText></Abstract>
+</Article></MedlineCitation></PubmedArticle>`
+	}
+	// The first run sees the preprint; the second, months later, sees the
+	// journal version under a new PMID and DOI, with the title recased.
+	weeks := []struct{ pmid, xml string }{
+		{"3001", record("3001", "bioRxiv", "10.1101/2025.11.05.686472", "Bridging Language Markers and Pathology: Digital Speech Measures in Alzheimer's Disease.")},
+		{"3002", record("3002", "Alzheimers Dement (Amst)", "10.1002/dad2.70466", "Bridging language markers and pathology: digital speech measures in Alzheimer's disease.")},
+	}
+	var week atomic.Int32
+	ncbi := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		wk := weeks[week.Load()]
+		switch r.URL.Path {
+		case "/esearch.fcgi":
+			fmt.Fprintf(w, `{"esearchresult":{"count":"1","idlist":["%s"]}}`, wk.pmid)
+		case "/elink.fcgi":
+			fmt.Fprint(w, `{"linksets":[]}`)
+		case "/efetch.fcgi":
+			fmt.Fprint(w, "<PubmedArticleSet>"+wk.xml+"</PubmedArticleSet>")
+		}
+	}))
+	t.Cleanup(ncbi.Close)
+	var chats int32
+	configPath := writeE2EConfig(t, ncbi.URL, fakeOllama(t, &chats).URL)
+	dir := filepath.Dir(configPath)
+
+	if code, _, stderr := runCLI(t, "run", "-config", configPath); code != 0 {
+		t.Fatalf("first run: exit %d, stderr:\n%s", code, stderr)
+	}
+	before := atomic.LoadInt32(&chats)
+
+	week.Store(1)
+	code, _, stderr := runCLI(t, "run", "-config", configPath)
+	if code != 0 {
+		t.Fatalf("second run: exit %d, stderr:\n%s", code, stderr)
+	}
+	if !strings.Contains(stderr, "3002 skipped (duplicate of 3001)") {
+		t.Errorf("second run didn't skip the journal version; stderr:\n%s", stderr)
+	}
+	if after := atomic.LoadInt32(&chats); after != before {
+		t.Errorf("second run made %d chat calls, want 0", after-before)
+	}
+	st, err := state.Load(filepath.Join(dir, "state.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if st.Seen["3002"] != "duplicate of 3001" {
+		t.Errorf("state for 3002 = %q", st.Seen["3002"])
+	}
+}
