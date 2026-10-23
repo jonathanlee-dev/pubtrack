@@ -251,7 +251,7 @@ func loadEvalPapers(ctx context.Context, path string, entries []eval.Entry, cfg 
 		return papers, nil
 	}
 	fmt.Fprintf(stderr, "fetching %d papers from PubMed into %s…\n", len(missing), path)
-	arts, err := pubmed.New(cfg.Tool, cfg.Email, cfg.NCBIAPIKey).Fetch(ctx, missing)
+	arts, err := newPubMed(cfg).Fetch(ctx, missing)
 	if err != nil {
 		return nil, err
 	}

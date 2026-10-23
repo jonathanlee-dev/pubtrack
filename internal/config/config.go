@@ -35,8 +35,11 @@ type Ollama struct {
 }
 
 type Config struct {
-	Email         string     `json:"email"`
-	NCBIAPIKey    string     `json:"ncbi_api_key"`
+	Email      string `json:"email"`
+	NCBIAPIKey string `json:"ncbi_api_key"`
+	// NCBIBaseURL overrides the E-utilities address. Empty means NCBI's own;
+	// the end-to-end tests point it at a local fake.
+	NCBIBaseURL   string     `json:"ncbi_base_url"`
 	Tool          string     `json:"tool"`
 	WindowDays    int        `json:"window_days"`
 	Queries       []Query    `json:"queries"`

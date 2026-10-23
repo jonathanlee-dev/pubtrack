@@ -110,7 +110,7 @@ func cmdRun(ctx context.Context, args []string, stdout, stderr io.Writer) int {
 
 	r := &run.Runner{
 		Config:   cfg,
-		PubMed:   pubmed.New(cfg.Tool, cfg.Email, cfg.NCBIAPIKey),
+		PubMed:   newPubMed(cfg),
 		LLM:      lc,
 		State:    st,
 		Matcher:  ownwork.NewMatcher(cfg.PlatformNames),
@@ -189,7 +189,7 @@ func cmdCheck(ctx context.Context, args []string, stdout, stderr io.Writer) int 
 		fmt.Fprintf(stdout, "ollama: ok (version %s, model %s)\n", v, cfg.Ollama.Model)
 	}
 
-	pm := pubmed.New(cfg.Tool, cfg.Email, cfg.NCBIAPIKey)
+	pm := newPubMed(cfg)
 	fmt.Fprintf(stdout, "pubmed: papers added in the last %d days\n", cfg.WindowDays)
 	for _, q := range cfg.Queries {
 		res, err := pm.Search(ctx, q.Term, cfg.WindowDays)
@@ -242,6 +242,14 @@ func newLLM(cfg config.Config) (*llm.Client, error) {
 		RequestTimeout:   time.Duration(cfg.Ollama.RequestTimeoutSeconds) * time.Second,
 		LoadTimeout:      time.Duration(cfg.Ollama.LoadTimeoutSeconds) * time.Second,
 	}), nil
+}
+
+func newPubMed(cfg config.Config) *pubmed.Client {
+	c := pubmed.New(cfg.Tool, cfg.Email, cfg.NCBIAPIKey)
+	if cfg.NCBIBaseURL != "" {
+		c.BaseURL = cfg.NCBIBaseURL
+	}
+	return c
 }
 
 // writeDigest writes digest-<date>.md and .json, adding -2, -3… rather than
