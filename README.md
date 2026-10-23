@@ -1,5 +1,7 @@
 # pubtrack
 
+[![test](https://github.com/jonathanlee-dev/pubtrack/actions/workflows/test.yml/badge.svg)](https://github.com/jonathanlee-dev/pubtrack/actions/workflows/test.yml)
+
 Watches PubMed for new papers matching a set of queries, has a **local LLM** (Ollama) summarize each
 one and score its relevance against a reader profile, and writes a markdown + JSON digest. Run it
 from cron.

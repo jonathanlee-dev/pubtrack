@@ -1,0 +1,8 @@
+version: 2
+updates:
+  # The Go code uses only the standard library, so the workflow's actions
+  # are the only dependencies to keep current.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
