@@ -1,0 +1,468 @@
+{
+  "implementation": "go",
+  "date": "2026-10-20",
+  "model": "llama3.2:1b",
+  "prompt_version": "v1",
+  "format": "schema",
+  "threshold": 4,
+  "unlabeled": 0,
+  "metrics": {
+    "true_positive": 0,
+    "false_positive": 29,
+    "false_negative": 0,
+    "true_negative": 1,
+    "failed": 0
+  },
+  "rows": [
+    {
+      "pmid": "42835705",
+      "pool": "in_home_sensing",
+      "title": "Turns and downturns in aging drivers.",
+      "labeled_relevant": false,
+      "score": 4,
+      "reason": "The study uses passive driving data to model the odds of turning left, which is a behavioral marker of early cognitive decline.",
+      "summary": "Researchers studied 106 older adults to find that greater cognitive impairment was associated with reduced odds of turning left, a common left-turn avoidance behavior in naturalistic driving data.",
+      "usage": {
+        "prompt_tokens": 537,
+        "output_tokens": 74,
+        "latency_ms": 864,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "42303956",
+      "pool": "in_home_sensing",
+      "title": "Intrinsic capacity and mortality in community-dwelling octogenarians: a network analysis from the ilSIRENTE study.",
+      "labeled_relevant": false,
+      "score": 4,
+      "reason": "The study characterizes the relationships among intrinsic capacity domains using network analysis and examines their association with mortality in community-dwelling octogenarians, providing insights into the IC framework and its application in healthy ageing.",
+      "summary": "Network analysis found clustered relationships among vitality, psychological, and cognitive domains, while sensory domains were peripheral",
+      "usage": {
+        "prompt_tokens": 766,
+        "output_tokens": 78,
+        "latency_ms": 739,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "41639237",
+      "pool": "in_home_sensing",
+      "title": "Validation of socialbit as a smartwatch algorithm for social interaction detection in a clinical population.",
+      "labeled_relevant": false,
+      "score": 5,
+      "reason": "The algorithm is specifically designed for social interaction detection in a clinical population, using a validated tool for real-time measurement in individuals with and without neurological deficits.",
+      "summary": "SocialBit is a machine learning algorithm that detects social interactions using ambient audio features on a smartwatch, validated in 153 hospitalized stroke patients.",
+      "usage": {
+        "prompt_tokens": 610,
+        "output_tokens": 75,
+        "latency_ms": 618,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "41131509",
+      "pool": "in_home_sensing",
+      "title": "Requirements of health professionals and affected persons for an App-based dual-task training for hearing impaired older adults - a Delphi survey.",
+      "labeled_relevant": false,
+      "score": 4,
+      "reason": "The study specifically addresses the needs of older adults with hearing impairments, a population that is often overlooked in cognitive-motor training research.",
+      "summary": "The Delphi survey aimed to determine the preferences and specific needs of older adults with hearing impairments for a cognitive-motor training app. The results showed significant differences between health professionals and hearing-impaired participants, with professionals emphasizing the importance of sensory challenges and dual-task exercises, while participants preferred less demanding physical activities and those incorporating music or ambient sounds.",
+      "usage": {
+        "prompt_tokens": 748,
+        "output_tokens": 113,
+        "latency_ms": 967,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "42837537",
+      "pool": "digital_biomarkers",
+      "title": "AI-Powered Framework for Personalized Prescription of Physical Activity in Aging: Proposing PEPHA, a framework for Personalized Phenotyping for Aging.",
+      "labeled_relevant": false,
+      "score": 5,
+      "reason": "This paper introduces a novel AI framework that directly addresses the need for personalized physical activity recommendations in aging, using wearable data and cognitive assessments.",
+      "summary": "PEPHA is an AI framework that identifies temporal patterns of physical activity and sedentary behavior in older adults, linking them to cognitive functioning and mental health outcomes.",
+      "usage": {
+        "prompt_tokens": 892,
+        "output_tokens": 76,
+        "latency_ms": 733,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "42358405",
+      "pool": "digital_biomarkers",
+      "title": "Detection of depression risk among older adults using home-deployed socially assistive robots: a real-world study.",
+      "labeled_relevant": false,
+      "score": 4,
+      "reason": "The study uses a real-world robot to predict depression risk in older adults, which is relevant to the reader's work on in-home sensor networks and self-administered cognitive assessments.",
+      "summary": "A study used a socially assistive robot to predict depression risk in older adults, with the robot's features including engagement with quiz content and positive responses to daily check-ins.",
+      "usage": {
+        "prompt_tokens": 686,
+        "output_tokens": 87,
+        "latency_ms": 734,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "41748644",
+      "pool": "digital_biomarkers",
+      "title": "From wrist data to lifespan: elucidating inflammation-driven biological aging via activity rhythms captured by wearable devices.",
+      "labeled_relevant": false,
+      "score": 4,
+      "reason": "The study uses wearable device data to identify activity rhythms as predictors of inflammation and mortality risk, and suggests that inflammation is a modifiable target for healthy aging interventions.",
+      "summary": "Researchers analyzed data from 62,000 adults with wearable devices to find that low activity rhythms and poor physical activity are associated with increased inflammation and mortality risk.",
+      "usage": {
+        "prompt_tokens": 629,
+        "output_tokens": 80,
+        "latency_ms": 671,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "41113677",
+      "pool": "digital_biomarkers",
+      "title": "Eye movements powered by artificial intelligence identify asymptomatic carriers of familial Alzheimer's disease.",
+      "labeled_relevant": false,
+      "score": 4,
+      "reason": "The study used eye-tracking to identify asymptomatic carriers of familial Alzheimer's disease, a novel approach that could lead to more affordable digital biomarker solutions for preclinical detection of AD.",
+      "summary": "Researchers used eye-tracking to identify asymptomatic carriers of familial Alzheimer's disease",
+      "usage": {
+        "prompt_tokens": 681,
+        "output_tokens": 68,
+        "latency_ms": 612,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "42842130",
+      "pool": "remote_cognitive_assessment",
+      "title": "Remote Online-Based Application of the Cerebellar Cognitive Affective Syndrome Scale.",
+      "labeled_relevant": false,
+      "score": 4,
+      "reason": "Remote administration is feasible and shows good reliability, but not measurement equivalence established",
+      "summary": "Remote CCAS-S administration feasible and shows good test-retest and interrater reliability",
+      "usage": {
+        "prompt_tokens": 688,
+        "output_tokens": 49,
+        "latency_ms": 480,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "42275527",
+      "pool": "remote_cognitive_assessment",
+      "title": "Feasibility and Acceptability of a Remote Sleep-Dependent Memory Assessment in Older Adults With Cognitive Concerns: Pilot Cross-Sectional Study.",
+      "labeled_relevant": false,
+      "score": 2,
+      "reason": "The study explores the feasibility and acceptability of a remote sleep-dependent memory assessment in older adults, but the technology used is not directly related to the reader's research focus.",
+      "summary": "The Sleep Memories app was well-accepted by older adults with cognitive concerns, but its feasibility and acceptability were limited by technical difficulties and lower willingness to participate in certain groups.",
+      "usage": {
+        "prompt_tokens": 765,
+        "output_tokens": 86,
+        "latency_ms": 772,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "41742940",
+      "pool": "remote_cognitive_assessment",
+      "title": "Remote cognitive training for older adults using tablets: A pilot trial.",
+      "labeled_relevant": false,
+      "score": 4,
+      "reason": "The study targets the same area and population as the reader's work, but uses a different technology and intervention.",
+      "summary": "A pilot trial found that a tablet-based cognitive training program improved cognitive function in older adults with cognitive impairment.",
+      "usage": {
+        "prompt_tokens": 654,
+        "output_tokens": 60,
+        "latency_ms": 539,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "41122074",
+      "pool": "remote_cognitive_assessment",
+      "title": "Videoconference-integrated, computer-assisted cognitive testing improves the remote assessment of processing speed and attention.",
+      "labeled_relevant": false,
+      "score": 4,
+      "reason": "The study evaluates the effectiveness of digital tasks in remote neuropsychological assessments, providing a new method for measuring processing speed and attention.",
+      "summary": "The digital version of the Symbol Digit Modalities Task (SDMT) and Trail Making Test (TMT) showed strong correlations with their written counterparts when administered remotely via videoconference.",
+      "usage": {
+        "prompt_tokens": 717,
+        "output_tokens": 79,
+        "latency_ms": 683,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "42798168",
+      "pool": "walking_reminiscence",
+      "title": "Effect of Multi-Modal Training in Patients With Mild Cognitive Impairment: A Randomized Controlled Pilot Trial.",
+      "labeled_relevant": false,
+      "score": 4,
+      "reason": "The study evaluates a specific type of technology (multi-modal training) for a specific population (older adults with mild cognitive impairment) and shows a statistically significant improvement in cognitive function.",
+      "summary": "A 24-week multi-modal training program improved global cognitive performance in older adults with mild cognitive impairment compared to health education.",
+      "usage": {
+        "prompt_tokens": 695,
+        "output_tokens": 76,
+        "latency_ms": 667,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "42059469",
+      "pool": "walking_reminiscence",
+      "title": "Cognitive behavioural therapy for older adults with depressive symptoms living in residential aged care: A pilot study of a systemic treatment model.",
+      "labeled_relevant": false,
+      "score": 4,
+      "reason": "The study targets a specific population and technology type, but the program is not a direct match to the reader's research focus.",
+      "summary": "A pilot study evaluated a systemic therapy program for older adults with depressive symptoms in residential aged care.",
+      "usage": {
+        "prompt_tokens": 693,
+        "output_tokens": 61,
+        "latency_ms": 556,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "41610684",
+      "pool": "walking_reminiscence",
+      "title": "An exploratory descriptive qualitative study examining the experiences and perceptions of family caregivers engaging in structured home-based reminiscence activities with persons with dementia.",
+      "labeled_relevant": false,
+      "score": 4,
+      "reason": "The study examines the experiences and perceptions of family caregivers, a key population in the development of dementia care systems.",
+      "summary": "Family caregivers in Singapore deliver structured home-based reminiscence activities to persons with dementia, reporting ease in conducting the activities but needing personalization and cultural resonance of materials to sustain engagement.",
+      "usage": {
+        "prompt_tokens": 715,
+        "output_tokens": 75,
+        "latency_ms": 654,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "41138987",
+      "pool": "walking_reminiscence",
+      "title": "Cortisol awakening response and autobiographical memory in healthy older adults: The moderating role of negative reminiscence.",
+      "labeled_relevant": false,
+      "score": 4,
+      "reason": "The study examines the relationship between the Cortisol Awakening Response, negative reminiscence, and autobiographical memory specificity in healthy older adults.",
+      "summary": "The Cortisol Awakening Response and autobiographical memory in healthy older adults: The moderating role of negative reminiscence.",
+      "usage": {
+        "prompt_tokens": 659,
+        "output_tokens": 68,
+        "latency_ms": 605,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "42840137",
+      "pool": "conversational_engagement",
+      "title": "From digital companionship to capability building: reframing conversational artificial intelligence and older adults' psychological wellbeing in active aging.",
+      "labeled_relevant": false,
+      "score": 4,
+      "reason": "The paper shifts from companionship-oriented to capability-building perspective, considering the developmental processes through which AI engagement influences psychological wellbeing in aging populations.",
+      "summary": "The paper reframes conversational AI's impact on older adults' psychological wellbeing through a capability-building perspective, focusing on expanding capabilities rather than substituting social interaction.",
+      "usage": {
+        "prompt_tokens": 641,
+        "output_tokens": 76,
+        "latency_ms": 656,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "42166076",
+      "pool": "conversational_engagement",
+      "title": "Addressing the silent epidemic: a narrative review and evidence synthesis of digital health and telehealth interventions for loneliness in older adults.",
+      "labeled_relevant": false,
+      "score": 4,
+      "reason": "The paper synthesizes evidence on various digital health and telehealth interventions, including telehealth video visits, empathy-focused telephone programs, and digital mental health platforms, and highlights the need for addressing the digital divide to ensure equitable implementation.",
+      "summary": "Digital health and telehealth interventions have shown promise in reducing loneliness among older adults, but their effectiveness varies by design, population characteristics, and implementation factors.",
+      "usage": {
+        "prompt_tokens": 782,
+        "output_tokens": 92,
+        "latency_ms": 808,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "41763153",
+      "pool": "conversational_engagement",
+      "title": "Social needs in home care for older adults: A qualitative exploration of recognition, expectations and opportunities.",
+      "labeled_relevant": false,
+      "score": 4,
+      "reason": "The paper focuses on the social needs of older adults in home care, which is relevant to the reader's work on technology platforms for aging research.",
+      "summary": "The paper explores how older adults, their families, and caregivers perceive and address social needs in home care, highlighting the importance of small acts of kindness.",
+      "usage": {
+        "prompt_tokens": 658,
+        "output_tokens": 76,
+        "latency_ms": 701,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "41124645",
+      "pool": "conversational_engagement",
+      "title": "Evaluating the Effectiveness of Digital Social Robots in Reducing Loneliness Among Community-Dwelling Older Adults in Japan: Randomized Controlled Trial and Qualitative Analysis.",
+      "labeled_relevant": false,
+      "score": 4,
+      "reason": "The study is relevant to the reader's work on building and deploying technology platforms for aging research, particularly those focused on social isolation and loneliness in older adults.",
+      "summary": "This study evaluated the effectiveness of digital social robot interventions in reducing loneliness among community-dwelling older Japanese adults, with a randomized controlled trial and qualitative analysis.",
+      "usage": {
+        "prompt_tokens": 784,
+        "output_tokens": 79,
+        "latency_ms": 732,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "42688514",
+      "pool": "own_platforms",
+      "title": "Bridging language markers and pathology: correlations between digital speech measures and surrogate CSF biomarkers in Alzheimer's disease.",
+      "labeled_relevant": false,
+      "score": 4,
+      "reason": "Correlates language markers with CSF biomarkers in Alzheimer's disease",
+      "summary": "Digital speech measures correlated with CSF biomarkers in Alzheimer's disease",
+      "usage": {
+        "prompt_tokens": 572,
+        "output_tokens": 45,
+        "latency_ms": 413,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "41278633",
+      "pool": "own_platforms",
+      "title": "Bridging Language Markers and Pathology: Correlations Between Digital Speech Measures and Surrogate CSF Biomarkers in Alzheimer's Disease.",
+      "labeled_relevant": false,
+      "score": 4,
+      "reason": "Correlations between digital language measures and CSF biomarkers in Alzheimer's disease",
+      "summary": "Digital language markers correlated with CSF biomarkers in Alzheimer's disease",
+      "usage": {
+        "prompt_tokens": 571,
+        "output_tokens": 46,
+        "latency_ms": 428,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "42895279",
+      "pool": "negative_cart",
+      "title": "Systemic sclerosis in 2026: emerging paradigms from the World Scleroderma Congress.",
+      "labeled_relevant": false,
+      "score": 5,
+      "reason": "The paper summarizes recent advances in systemic sclerosis, highlighting a paradigm shift in disease onset and the increasing involvement of type I interferon-driven pathways, enabling a very early/early diagnosis and precision-based therapeutic approach.",
+      "summary": "Recent advances in systemic sclerosis highlight a paradigm shift in disease onset, with early immune activation and microvascular dysfunction, and the increasing involvement of type I interferon-driven pathways. Multimodal imaging and biomarkers enable detection of subclinical disease, while novel therapeutic strategies are driving a transition toward earlier intervention.",
+      "usage": {
+        "prompt_tokens": 603,
+        "output_tokens": 118,
+        "latency_ms": 991,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "42849625",
+      "pool": "negative_cart",
+      "title": "Recent advances in tumor microenvironment-responsive pro-antibody to overcome on-target, off-tumor toxicity.",
+      "labeled_relevant": false,
+      "score": 4,
+      "reason": "The review provides a comprehensive overview of TME-responsive pro-antibodies, their mechanism of action, and their applications, highlighting the potential for safer and more effective antibody therapies.",
+      "summary": "Researchers have designed pro-antibodies that respond to the tumor microenvironment, reducing on-target, off-tumor toxicity.",
+      "usage": {
+        "prompt_tokens": 620,
+        "output_tokens": 78,
+        "latency_ms": 649,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "42806572",
+      "pool": "negative_cart",
+      "title": "uPAR-Targeting T Cell Engager Exerts Senolytic Effects in Mice and Non-Human Primates With Serum Aminotransferase Activity as a Safety Monitor.",
+      "labeled_relevant": false,
+      "score": 4,
+      "reason": "The paper describes a specific BiTE targeting uPAR, which is relevant to the reader's research on senolytic systems and their deployment in older adults.",
+      "summary": "The GFD-CD3 BiTE targets uPAR-positive senescent cells, inducing hepatotoxicity in mice and primates with serum aminotransferase activity as a safety monitor.",
+      "usage": {
+        "prompt_tokens": 589,
+        "output_tokens": 88,
+        "latency_ms": 705,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "42761580",
+      "pool": "negative_cart",
+      "title": "Oncofetal antigens as emerging targets in chimeric antigen receptor (CAR)-T cell-based immunotherapies: opportunities and challenges.",
+      "labeled_relevant": false,
+      "score": 4,
+      "reason": "The paper discusses the biological foundations of oncofetal antigen expression and proposes engineering and combination strategies to overcome current limitations.",
+      "summary": "Oncofetal antigens are targets for CAR-T cell therapies, but modest antitumor efficacy in solid malignancies persists.",
+      "usage": {
+        "prompt_tokens": 606,
+        "output_tokens": 67,
+        "latency_ms": 566,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "42892622",
+      "pool": "negative_older_adults_other",
+      "title": "Oral Health Care Interventions by Functional Status Among Older Adults in a Nursing Home and Day Care Centre: A Pilot Study.",
+      "labeled_relevant": false,
+      "score": 4,
+      "reason": "The study focuses on the impact of functional status on oral health care in older adults, which is relevant to the reader's research interests.",
+      "summary": "A pilot study evaluated the effectiveness of oral health care programs tailored to functional status in older adults in a nursing home and day care centre.",
+      "usage": {
+        "prompt_tokens": 649,
+        "output_tokens": 71,
+        "latency_ms": 615,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "42831448",
+      "pool": "negative_older_adults_other",
+      "title": "Disparities in Dental Care Access, Oral Cancer Counseling, and Oral Cancer Examination Among U.S. Adults with a History of Cancer: Results from NHANES, 2015-2018.",
+      "labeled_relevant": false,
+      "score": 4,
+      "reason": "The study examined factors associated with receiving oral cancer examination and counseling among adults with a history of cancer, highlighting disparities in access to preventive oral health services.",
+      "summary": "A 2015-2018 NHANES study found disparities in dental care access, oral cancer counseling, and examination among U.S. adults with a history of cancer.",
+      "usage": {
+        "prompt_tokens": 688,
+        "output_tokens": 82,
+        "latency_ms": 706,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "42775949",
+      "pool": "negative_older_adults_other",
+      "title": "Periodontitis, Edentulism, and Accelerated Biological Aging: A Population-Based Study of Epigenetic Clocks.",
+      "labeled_relevant": false,
+      "score": 5,
+      "reason": "The study examines the relationship between periodontal status and epigenetic age acceleration in older adults, suggesting that these oral conditions may reflect or contribute to systemic biological aging.",
+      "summary": "Severe periodontitis and edentulism are associated with accelerated epigenetic aging in older adults, as measured by four clocks: HannumAge, HorvathAge, PhenoAge, and GrimAge2Mort.",
+      "usage": {
+        "prompt_tokens": 838,
+        "output_tokens": 99,
+        "latency_ms": 1040,
+        "attempts": 1
+      }
+    },
+    {
+      "pmid": "42713081",
+      "pool": "negative_older_adults_other",
+      "title": "Frailty in Cardiorenal Care: A Geriatric Perspective on the 2026 European Society of Cardiology Guidelines.",
+      "labeled_relevant": false,
+      "score": 4,
+      "reason": "The paper proposes a conceptual and unvalidated extension of the guideline framework to include frailty, function, and future healthspan, which may improve individualized treatment decisions.",
+      "summary": "The proposed STAMP-F extension of the 2026 European Society of Cardiology Guidelines addresses the clinical heterogeneity of older adults in cardiorenal care.",
+      "usage": {
+        "prompt_tokens": 610,
+        "output_tokens": 81,
+        "latency_ms": 663,
+        "attempts": 1
+      }
+    }
+  ]
+}

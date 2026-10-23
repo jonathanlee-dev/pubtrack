@@ -1,0 +1,83 @@
+{
+  "email": "you@example.com",
+  "ncbi_api_key": "",
+  "tool": "pubtrack",
+  "window_days": 10,
+  "queries": [
+    {
+      "name": "in_home_sensing",
+      "term": "(\"in-home\"[tiab] OR \"home-based\"[tiab] OR ambient[tiab] OR passive[tiab] OR unobtrusive[tiab]) AND (sensor*[tiab] OR \"remote monitoring\"[tiab]) AND (\"Aged\"[Mesh] OR \"older adults\"[tiab]) AND (\"Cognitive Dysfunction\"[Mesh] OR \"mild cognitive impairment\"[tiab] OR dementia[tiab] OR cognit*[tiab])"
+    },
+    {
+      "name": "digital_biomarkers",
+      "term": "(\"digital biomarker*\"[tiab] OR \"digital phenotyp*\"[tiab]) AND (aging[tiab] OR \"older adults\"[tiab] OR dementia[tiab] OR \"Alzheimer Disease\"[Mesh] OR \"mild cognitive impairment\"[tiab])"
+    },
+    {
+      "name": "remote_cognitive_assessment",
+      "term": "(unsupervised[tiab] OR \"self-administered\"[tiab] OR \"web-based\"[tiab] OR remote[tiab] OR smartphone[tiab]) AND (\"cognitive assessment\"[tiab] OR \"cognitive test*\"[tiab] OR \"neuropsychological test*\"[tiab]) AND (\"older adults\"[tiab] OR \"Aged\"[Mesh])"
+    },
+    {
+      "name": "walking_reminiscence",
+      "term": "(reminiscence[tiab] OR \"walking group*\"[tiab] OR \"walking intervention*\"[tiab]) AND (\"older adults\"[tiab] OR \"Aged\"[Mesh]) AND (cognit*[tiab] OR \"social engagement\"[tiab] OR \"brain health\"[tiab])"
+    },
+    {
+      "name": "conversational_engagement",
+      "term": "(\"social isolation\"[tiab] OR loneliness[tiab] OR \"social engagement\"[tiab]) AND (conversation*[tiab] OR \"video chat\"[tiab] OR videoconferenc*[tiab] OR \"internet-based\"[tiab]) AND (cognit*[tiab] OR \"mild cognitive impairment\"[tiab]) AND (\"older adults\"[tiab] OR \"Aged\"[Mesh])"
+    },
+    {
+      "name": "own_platforms",
+      "term": "(ORCATECH[tiab] OR \"Oregon Center for Aging and Technology\"[tiab] OR \"Collaborative Aging Research Using Technology\"[tiab] OR \"Survey for Memory, Attention, and Reaction Time\"[tiab] OR \"I-CONECT\"[tiab])"
+    }
+  ],
+  "own_papers": [
+    {
+      "pmid": "40974151",
+      "label": "Gerontologist 2025 (reminiscence walking)"
+    },
+    {
+      "pmid": "37935416",
+      "label": "Gerontologist 2024 (I-CONECT)"
+    },
+    {
+      "pmid": "33827088",
+      "label": "Gerontology 2021 (SMART)"
+    },
+    {
+      "pmid": "33442584",
+      "label": "Digit Biomark 2020 (CART)"
+    },
+    {
+      "pmid": "32310138",
+      "label": "JMIR Form Res 2020 (veterans in-home sensing)"
+    },
+    {
+      "pmid": "30102277",
+      "label": "J Vis Exp 2018 (life laboratory)"
+    }
+  ],
+  "platform_names": [
+    "ORCATECH",
+    "Oregon Center for Aging and Technology",
+    "Collaborative Aging Research Using Technology",
+    "Survey for Memory, Attention, and Reaction Time",
+    "I-CONECT"
+  ],
+  "profile": "I am a research engineer who built and operated technology platforms for aging research: in-home sensor networks that passively monitor older adults' activity, sleep, and mobility to detect cognitive decline; a self-administered web-based cognitive assessment for older adults; a shared research platform for collecting continuous remote health data across studies; a GPS-guided walking app for a social reminiscence intervention; and the technology side of an internet-based conversational engagement trial for socially isolated older adults. I want papers about how these kinds of systems are built, validated, deployed, or used to measure cognition and daily function in older adults.",
+  "prompt_version": "v1",
+  "extract_fields": true,
+  "extract_prompt_version": "extract-v1",
+  "embedding_model": "nomic-embed-text",
+  "max_abstract_chars": 6000,
+  "max_attempts": 3,
+  "state_path": "state.json",
+  "output_dir": "digests",
+  "ollama": {
+    "url": "http://localhost:11434",
+    "model": "llama3.2:3b",
+    "format": "schema",
+    "num_ctx": 4096,
+    "num_predict": 512,
+    "request_timeout_seconds": 120,
+    "load_timeout_seconds": 300
+  }
+}

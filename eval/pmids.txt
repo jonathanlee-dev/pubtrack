@@ -1,0 +1,38 @@
+# pubtrack eval set: 30 papers, chosen 2026-10-19 with a one-off sampling script.
+# Method: for each pool, esearch over the last 365 days by Entrez date, keep papers that have an
+# abstract and aren't errata, then take evenly spaced PMIDs from the result list. Papers already
+# shown with model scores (the first digest) were excluded so labels stay independent.
+# Pools: 4 each from five queries, 2 from own_platforms, and 8 expected negatives (4 CAR-T papers
+# that a bare CART[tiab] search returns, 4 older-adult papers from unrelated fields).
+# The pool is recorded here but hidden from the labeling sheet.
+# Format: PMID<TAB>pool
+42835705	in_home_sensing
+42303956	in_home_sensing
+41639237	in_home_sensing
+41131509	in_home_sensing
+42837537	digital_biomarkers
+42358405	digital_biomarkers
+41748644	digital_biomarkers
+41113677	digital_biomarkers
+42842130	remote_cognitive_assessment
+42275527	remote_cognitive_assessment
+41742940	remote_cognitive_assessment
+41122074	remote_cognitive_assessment
+42798168	walking_reminiscence
+42059469	walking_reminiscence
+41610684	walking_reminiscence
+41138987	walking_reminiscence
+42840137	conversational_engagement
+42166076	conversational_engagement
+41763153	conversational_engagement
+41124645	conversational_engagement
+42688514	own_platforms
+41278633	own_platforms
+42895279	negative_cart
+42849625	negative_cart
+42806572	negative_cart
+42761580	negative_cart
+42892622	negative_older_adults_other
+42831448	negative_older_adults_other
+42775949	negative_older_adults_other
+42713081	negative_older_adults_other

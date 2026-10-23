@@ -1,0 +1,33 @@
+pubtrack eval · model llama3.2:3b · prompt v1 · format schema · relevant = score ≥ 4
+
+Labeled 5 (3 relevant, 2 not) · scored 4 · failed 1 · unlabeled 2
+
+              labeled y  labeled n
+  model ≥ 4           1          1
+  model < 4           1          1
+
+  precision  0.50  (1/2)
+  recall     0.50  (1/2)
+  agreement  0.50  (2/4)
+
+Score distribution
+  score  labeled y  labeled n
+      5          1          0
+      4          0          1
+      3          1          0
+      2          0          0
+      1          0          1
+
+Disagreements (2)
+  103  labeled n, scored 4  [negative_cart]
+    False alarm
+    Model: Mentions sensors.
+  104  labeled y, scored 3  [digital_biomarkers]
+    Missed paper
+    Model: Only adjacent.
+    Your note: hard call
+
+Failed (1)
+  101  [own_platforms]  invalid model output: missing "reason"
+
+Tokens in / out 4,100 / 450 · LLM time 10.1s (avg 2.0s per paper)

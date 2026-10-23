@@ -1,0 +1,15 @@
+# Personal config (has your email and maybe an NCBI API key)
+/config.json
+# Run output
+/state.json
+/digests/
+# Binary
+/pubtrack
+
+# PubMed abstracts may be copyrighted by publishers; regenerate locally instead of publishing
+/eval/LABELING.md
+/eval/papers.json
+
+# OS and cron log clutter
+.DS_Store
+*.log
