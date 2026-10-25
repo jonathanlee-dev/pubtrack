@@ -139,3 +139,47 @@ Benchmark, prompt v1, relevant = score ≥ 4:
 - The eval set contains the same paper twice under two PMIDs (41278633 and 42688514, "Bridging
   Language Markers and Pathology"). PubMed sometimes indexes a paper twice; the tracker should dedupe
   by DOI or normalized title.
+
+## 2026-10-25 — prompts v2 and v3 (kept as experiments), duplicates, offline end-to-end tests
+
+Two prompt revisions aimed at the 3B's "adjacent, scored as 4" pattern. Neither replaced v1.
+
+False alarms on the 30-paper eval set (all labeled not relevant), and scores on the two first-digest
+papers judged relevant (robot-VR social engagement 42893253, Framingham DANA 42896150):
+
+| Model | Prompt | False alarms (of 30) | 42893253 | 42896150 |
+|---|---|---|---|---|
+| llama3.2:3b | v1 | 8 | 4 | 4 |
+| llama3.2:3b | v2 | 17 | 5 | 4 |
+| llama3.2:3b | v3 | 13 | 3 | 2 |
+| llama3.1:8b | v1 | 5 | 3 | 4 |
+| llama3.1:8b | v2 | 11 | 3 | 4 |
+| llama3.1:8b | v3 | 4 | 3 | 4 |
+
+- **v2** said the profile describes kinds of systems, not products, and asked for the technology
+  decision before the score. Both models then read "kind" far too broadly ("a cognitive assessment
+  tool", "cognitive training", "systemic therapy", "wearables") and false alarms doubled.
+- **v3** kept v1's rubric and added a narrower matching rule (same job, same way; a broader
+  category doesn't count) plus "if the reason says different or adjacent, score 3 or lower". It cost
+  the 3B both relevant papers, and on the 8B it matched v1 except for one paper.
+- Defaults stay at llama3.2:3b with v1. The 3B catches both relevant papers but raises more false
+  alarms; the 8B raises fewer but misses the robot-VR paper. Two relevant papers can't settle that,
+  and every prompt tuned against this eval set makes it a weaker test. Adding relevant papers to the
+  eval set comes first.
+- The digest lists every paper, sorted by score, so a false alarm costs a few seconds of reading and
+  a miss only moves a paper down the list.
+
+Also:
+
+- The "paper indexed twice" pair (41278633, 42688514) is a bioRxiv preprint and its journal version,
+  entered nine months apart, with different DOIs and recased titles. Papers are now matched across
+  runs by DOI or normalized title and skipped as "duplicate of <PMID>".
+- Offline end-to-end tests run the real `pubtrack run` command against local fakes of NCBI and
+  Ollama, and CI runs everything on Go's oldest supported release and the newest.
+
+Where the agent was wrong:
+
+- Prompt v2 was its design; it made false alarms worse on both models. Caught by the eval before any
+  default changed.
+- A search-and-replace rewrote the new `newPubMed` helper's own body into a call to itself, which
+  compiled. Caught by reading the result before running the tests.
