@@ -8,7 +8,7 @@ from cron.
 
 ## Quickstart
 
-Requirements: Go 1.22+, [Ollama](https://ollama.com) 0.5 or later.
+Requirements: Go 1.26+, [Ollama](https://ollama.com) 0.5 or later.
 
 ```sh
 ollama pull llama3.2:3b                 # ~2 GB

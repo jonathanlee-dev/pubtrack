@@ -14,8 +14,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # The oldest Go that go.mod and the README promise, and the newest.
-        go: ["1.22", "stable"]
+        # The oldest supported Go, which go.mod and the README require, and the newest.
+        go: ["1.26", "stable"]
     name: go ${{ matrix.go }}
     steps:
       - uses: actions/checkout@v4
