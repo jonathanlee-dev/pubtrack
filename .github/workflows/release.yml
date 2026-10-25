@@ -1,0 +1,55 @@
+name: release
+
+# Pushing a tag like v0.1.0 tests the code, builds pubtrack for each
+# platform, and publishes the archives as a GitHub Release.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+          # Standard library only: there's no go.sum to key a cache on.
+          cache: false
+
+      - name: go test
+        run: go test -race ./...
+
+      - name: build
+        run: |
+          set -eu
+          mkdir dist
+          for target in darwin/arm64 darwin/amd64 linux/amd64 linux/arm64 windows/amd64; do
+            goos=${target%/*}
+            goarch=${target#*/}
+            name="pubtrack_${GITHUB_REF_NAME}_${goos}_${goarch}"
+            exe=pubtrack
+            if [ "$goos" = windows ]; then exe=pubtrack.exe; fi
+            mkdir "dist/$name"
+            # Prompts are embedded, so the binary needs nothing else at run time.
+            CGO_ENABLED=0 GOOS=$goos GOARCH=$goarch \
+              go build -trimpath -ldflags="-s -w" -o "dist/$name/$exe" ./cmd/pubtrack
+            cp README.md LICENSE config.example.json "dist/$name/"
+            if [ "$goos" = windows ]; then
+              (cd dist && zip -qr "$name.zip" "$name")
+            else
+              tar -czf "dist/$name.tar.gz" -C dist "$name"
+            fi
+            rm -r "dist/$name"
+          done
+          (cd dist && sha256sum * > checksums.txt)
+          ls -l dist
+
+      - name: publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" dist/* --title "$GITHUB_REF_NAME" --generate-notes
